@@ -1,3 +1,0 @@
-FROM nginx:latest
-COPY index.html /usr/share/nginx/html/index.html
-CMD ["echo", "GUEST WHO> curl http://localhost:8080"]
