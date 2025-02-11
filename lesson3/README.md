@@ -30,9 +30,11 @@ sudo docker run -d --name my-nginx -p 8080:80 nginx
 sudo docker logs my-nginx
 sudo docker inspect my-nginx
 ```
+```
 sudo docker stop my-nginx
 sudo docker start my-nginx
 sudo docker rm my-nginx
+```
 ```
 sudo docker images
 sudo docker rmi my-nginx
