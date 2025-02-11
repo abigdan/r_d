@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gitea.k8s.loc
+  namespace: gitea
+spec:
+  secretName: gitea-tls-secret
+  duration: 8760h
+  renewBefore: 720h
+  commonName: gitea.k8s.loc
+  dnsNames:
+    - gitea.k8s.loc
+  issuerRef:
+    name: selfsigned-cluster-issuer
+    kind: ClusterIssuer
+
