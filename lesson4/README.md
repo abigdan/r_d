@@ -2,9 +2,11 @@
 
 ## **Базові команди**
 Три образи
+```
 nginx-from-nginx (найбільший за розміром)
 nginx-from-ubuntu
 nginx-from-ubuntu-with-one-run (найменший за розміром)
+```
 
 ## **Корисні команди**
 ```
