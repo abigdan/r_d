@@ -1,12 +1,22 @@
-# Lesson-4
+# Lesson-5
 
-## **Базові команди**
-Три образи
+## **Підготовка контейнерів**
+Використаний образ з попереднього завдання
 ```
-nginx-from-nginx (найбільший за розміром)
 nginx-from-ubuntu
-nginx-from-ubuntu-with-one-run (найменший за розміром)
 ```
+Створення контейнерів
+```
+sudo docker run -d --name ngnx1-bridge -p 8081:80 nginx-from-ubuntu
+sudo docker run -d --name ngnx2-bridge -p 8082:80 nginx-from-ubuntu
+sudo docker run -d --name ngnx3-host –network host nginx-from-ubuntu
+```
+Додаткові команди
+```
+sudo apt-get install net-tools
+sudo netstat -tulnp | grep :80
+```
+
 
 ## **Корисні команди**
 ```
