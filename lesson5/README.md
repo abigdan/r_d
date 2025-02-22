@@ -13,6 +13,7 @@ sudo docker run -d --name ngnx3-host –network host nginx-from-ubuntu
 sudo docker run -d --name ngnx4-none –network none -p 8084:80 nginx-from-ubuntu
 
 sudo docker network create -d macvlan --subnet=192.168.100.0/24 --gateway=192.168.100.1 -o parent=enp0s3 macvlan
+sudo docker run -d --name ngnx5-macvlan –network macvlan -p 8085:80 nginx-from-ubuntu
 ```
 Додаткові команди
 ```
