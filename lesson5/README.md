@@ -10,6 +10,7 @@ nginx-from-ubuntu
 sudo docker run -d --name ngnx1-bridge -p 8081:80 nginx-from-ubuntu
 sudo docker run -d --name ngnx2-bridge -p 8082:80 nginx-from-ubuntu
 sudo docker run -d --name ngnx3-host –network host nginx-from-ubuntu
+sudo docker run -d --name ngnx4-none –network none -p 8084:80 nginx-from-ubuntu
 ```
 Додаткові команди
 ```
