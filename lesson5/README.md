@@ -16,6 +16,22 @@ sudo docker run -d --name ngnx4-none –network none -p 8084:80 nginx-from-ubunt
 ```
 sudo apt-get install net-tools
 sudo netstat -tulnp | grep :80
+
+git add lesson5
+git commit -m "5th_comit"
+git push
+```
+Результат команди: ip a
+```
+sudo docker exec -it ngnx1-bridge ip a > ngnx1-bridge.txt
+sudo docker exec -it ngnx2-bridge ip a > ngnx2-bridge.txt
+sudo docker exec -it ngnx3-host ip a > ngnx3-host.txt
+sudo docker exec -it ngnx4-none ip a > ngnx4-none.txt
+ip a > host.txt
+
+Як видно, перелік мережевих адаптерів контейнера ngnx3-host (--network host) абсолютно ідентичний до переліку безпосередньо на хостовій системі
+Для мережеі none відповідний контейнер ngnx4-none має лише localhost (127.0.0.1) адаптер
+
 ```
 
 
