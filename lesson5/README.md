@@ -122,4 +122,12 @@ lynx http://localhost:80
 lynx http://localhost:80
 ```
 
+## VOLUMES
+
+### Створення контейнерів з сумісним томом
+```
+sudo docker run -d --name ngnx6-vol -v shared_volume:/home/r_d/vol -p 8086:80 nginx-l5
+sudo docker run -d --name ngnx7-vol -v shared_volume:/home/r_d/vol -p 8087:80 nginx-l5
+sudo docker volume ls
+```
 
