@@ -1,0 +1,9 @@
+FROM ubuntu:latest
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN apt-get install -y nginx
+RUN apt-get install -y lynx
+RUN apt-get install -y net-tools
+RUN apt-get install -y iputils-ping
+COPY index.html /var/www/html/
+ENTRYPOINT ["nginx","-g","daemon off;"]
