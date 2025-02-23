@@ -131,3 +131,18 @@ sudo docker run -d --name ngnx7-vol -v shared_volume:/home/r_d/vol -p 8087:80 ng
 sudo docker volume ls
 ```
 
+### Створення файлу в першому контенері на спільному томі
+```
+sudo docker exec -it ngnx6-vol /bin/bash
+cd /home/r_d/vol
+ip a > ngnx6-vol.txt
+exit
+```
+
+### Перегляд файлу в іншому контенері на спільному томі
+```
+sudo docker exec -it ngnx7-vol /bin/bash
+cat /home/r_d/vol/ngnx6-vol.txt
+exit
+```
+
