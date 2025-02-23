@@ -46,6 +46,9 @@ ip a > host.txt
 
 ## **Доступність контейнерів**
 
+Чомусь по імені створені контейнери не були доступні (((
+Хоча контейнери gitea та postrgesql (що створювалися gitea) по імені доступні.
+
 ### Приклади **успішної** доступності з __ХОСТОВОЇ__ системи
 #### ngnx1-bridge
 ```
@@ -120,16 +123,3 @@ lynx http://localhost:80
 ```
 
 
-
-Доступність з bridge:
-sudo docker exec -it ngnx1-bridge /bin/bash
-
-Вдалося "достукатися" до ngnx2-bridge (172.17.0.3) та відкрити сторінку веб-серверу, а також пропінкувати хостові IP.
-
-Але зайти на 80-й порт хосту чи контейнеру ngnx3-host не пощастило ( 
-
-## **Корисні команди**
-```
-sudo docker tag nginx-from-ubuntu abigdan/nginx-from-ubuntu:0.2
-sudo docker push abigdan/nginx-from-nginx:0.1
-```
