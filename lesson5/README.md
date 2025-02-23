@@ -1,15 +1,16 @@
 # Lesson-5
 
 ## **Підготовка контейнерів**
-Використаний образ з попереднього завдання
+Використаний образ з попереднього завдання nginx з додаванням наступних RUN:
+
 ```
-nginx з додаванням наступних RUN:
 RUN apt-get install -y lynx              --- замість curl для віддаленого підключення до вебсерверу
 RUN apt-get install -y net-tools         --- ifconfig, netstat...
 RUN apt-get install -y iputils-ping      --- ping
+```
 
 А ось додати curl не вдалось - постійно якась помилка з недоступністю якогось IP, де дзеркало цього пакету. Намагався використовувати VPN в різних країнах - не допомогло, різні IP були недоступні (хоча це не рф чи білорусь, а належність Британії). На хостовій системі проблем не виникало або включення VPN допомагало, а ось при створенні образу докером - постійно з curl (в Інтернеті подібні історії про докер відомі, але методи лікування накшталт apt-get update && не допомогли, а редагувати список джерел для мене нереально при створенні образу)
-```
+
 ### Створення контейнерів
 ```
 sudo docker run -d --name ngnx1-bridge -p 8081:80 nginx-l5
@@ -20,6 +21,7 @@ sudo docker run -d --name ngnx4-none –network none -p 8084:80 nginx-l5
 sudo docker network create -d macvlan --subnet=192.168.100.0/24 --gateway=192.168.100.1 -o parent=enp0s3 macvlan
 sudo docker run -d --name ngnx5-macvlan –network macvlan -p 8085:80 nginx-l5
 ```
+
 ### Додаткові команди
 ```
 sudo netstat -tulnp | grep :80
@@ -53,11 +55,19 @@ lynx http://172.17.0.2:80
 lynx http://localhost:8081
 ```
 
-#### ngnx1-bridge
+#### ngnx2-bridge
 ```
 ping 172.17.0.3
 lynx http://172.17.0.3:80
 lynx http://localhost:8082
+
+#### ngnx3-host
+```
+ping 172.17.0.2
+lynx http://172.17.0.2:80
+lynx http://localhost:8081
+```
+
 
 
 Доступність з bridge:
