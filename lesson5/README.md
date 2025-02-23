@@ -3,7 +3,9 @@
 ## **Підготовка контейнерів**
 Використаний образ з попереднього завдання
 ```
-nginx-from-ubuntu
+nginx з додаванням наступних RUN:
+apt-get install -y lynx
+apt-get install -y iputils-ping
 ```
 Створення контейнерів
 ```
