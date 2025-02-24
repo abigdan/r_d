@@ -1,12 +1,16 @@
 # Lesson-6
 
-## Підготовка образів та мережі (тека lesson6)
+## Підготовка образів та мережі (тека lesson6/fluent)
 ```
 sudo docker build -t fluentd-loki .
 
 sudo docker network create --driver bridge net_l6
 
-sudo docker run -d --name fluentd --network net_l6 -v $(pwd)/fluentd.conf:/fluentd/etc/fluent.conf -p 24224:24224 -p 24224:24224/up fluentd-loki
+sudo docker run -d --name fluentd --network net_l6 -v $(pwd)/fluentd.conf:/fluentd/etc/fluent.conf -p 24224:24224 -p 24224:24224/udp fluentd-loki
+
+sudo docker run -d --name log_container busybox sh -c 'while true; do echo "Log string posted at $(date)"; sleep 2; done'
+
+sudo docker logs log_container
 ```
 
 
