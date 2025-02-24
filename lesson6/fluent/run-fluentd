@@ -1,0 +1,1 @@
+sudo docker run --name fluentd --network net_l6 -v /home/rd/r_d/lesson6/fluent/fluentd.conf:/fluentd/etc/fluent.conf -p 24224:24224 -p 24224:24224/udp fluentd-loki

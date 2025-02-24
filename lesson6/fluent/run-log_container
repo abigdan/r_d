@@ -1,0 +1,1 @@
+sudo docker run -d --name log_container --network net_l6 --log-driver=fluentd --log-opt fluentd-address=localhost:24224 busybox sh -c while true; do echo "Fluentd test log: $(date)"; sleep 2; done
