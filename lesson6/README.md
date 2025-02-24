@@ -1,5 +1,15 @@
 # Lesson-6
 
+## Підготовка образів та мережі (тека lesson6)
+```
+sudo docker build -t fluentd-loki .
+
+sudo docker network create --driver bridge net_l6
+
+sudo docker run -d --name fluentd --network net_l6 -v $(pwd)/fluentd.conf:/fluentd/etc/fluent.conf -p 24224:24224 -p 24224:24224/up fluentd-loki
+```
+
+
 # **Логування та події в Docker**
 
 ## **Методи логування в Docker**
