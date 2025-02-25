@@ -56,7 +56,7 @@ services:
     image: grafana/grafana
     # підключення тому - передача файлу конфігурації в контейнер в режимі read-only
     volumes:
-      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./provisioning:/etc/grafana/provisioning:ro
     # список мереж
     networks:
       - net_l6
