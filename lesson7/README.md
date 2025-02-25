@@ -1,6 +1,15 @@
 # Lesson-7
 
-# **Docker Compose** YAML
+# **Попередні налаштування:
+## тека lesson7
+файл .env
+```
+gf_pass=r0b0t
+gf_path=/etc/grafana/dashboards/default-dashboard.json
+gf_url=http://localhost:8088
+```
+
+# **Docker Compose** YAML в теці lesson7
 
 docker-compose.yaml
 ```
@@ -62,7 +71,7 @@ services:
     image: grafana/grafana
     # підключення тому - передача файлу конфігурації в контейнер в режимі read-only
     volumes:
-      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./provisioning:/etc/grafana/provisioning:ro
     # список мереж
     networks:
       - net_l6
@@ -84,7 +93,9 @@ networks:
     driver: bridge
 ```
 
-
+# Інші теки
+тека lesson7/fluent
+тека lesson7/provisioning
 
 
 ## Опис ключових елементів `**docker-compose.yml**`
