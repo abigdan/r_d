@@ -9,7 +9,7 @@ version: '1.1'
 # сервіси / контейнери
 services:
 
-  # контейнер збору логыв
+  # контейнер накопичення логів для візуалізації у Grafana
   loki:
     # образ контейнера
     image: grafana/loki:latest
@@ -20,7 +20,7 @@ services:
     networks:
       - net_l6
 
-  # контейнер
+  # контейнер з драйвером централізованого збору логів Fluent
   fluentd-loki:
     # параметри створення образа
     build:
@@ -33,39 +33,52 @@ services:
     # підключення тому - передача файлу конфігурації в контейнер в режимі read-only
     volumes:
       - ./fluentd-loki/fluentd.conf:/fluentd/etc/fluent.conf:ro
+    # список мереж
     networks:
       - net_l6
+    # список залежних сервісів (тобто ці сервіси/контейнери мають бути зібрані та запущені раніше, ніж поточний сервіс/контейнер)
     depends_on: 
       - loki
 
+  # контейнер зі створення штучних подій на основі busybox
   log_container:
     image: busybox
     command: "sh -c 'while true; do echo \"Fluentd test log: $(date)\"; sleep 2; done'"
+    # список мереж
     networks:
       - net_l6
+    # передача подій до fluentd
     logging:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
         tag: log_container.logs
+    # список залежних сервісів (тобто ці сервіси/контейнери мають бути зібрані та запущені раніше, ніж поточний сервіс/контейнер)
     depends_on:
       - fluentd-loki
 
+  # контейнер з grafana для візуалізації та аналітики даних з джерела loki
   grafana:
     image: grafana/grafana
+    # підключення тому - передача файлу конфігурації в контейнер в режимі read-only
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning:ro
+    # список мереж
     networks:
       - net_l6
+    # списки портів (звідки:куди)
     ports:
       - "8088:3000"
+    # перелік змінних, що зберігаються у файлі .env
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=${pass}
-      - GF_DASHBOARD_DEFAULT_HOME_DASHBOARD_PATH=${path}
-      - GF_SERVER_ROOT_URL=${url}
+      - GF_SECURITY_ADMIN_PASSWORD=${gf_pass}
+      - GF_DASHBOARD_DEFAULT_HOME_DASHBOARD_PATH=${gf_path}
+      - GF_SERVER_ROOT_URL=${gf_url}
+    # список залежних сервісів (тобто ці сервіси/контейнери мають бути зібрані та запущені раніше, ніж поточний сервіс/контейнер)
     depends_on:
       - loki
 
+# налаштування мережі
 networks:
   net_l6:
     driver: bridge
