@@ -1,0 +1,55 @@
+version: '1.1'
+
+services:
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    networks:
+      - net_l6
+
+  fluentd-loki:
+    build:
+      context: ./fluentd-loki
+      dockerfile: Dockerfile
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    volumes:
+      - ./fluentd-loki/fluentd.conf:/fluentd/etc/fluent.conf:ro
+    networks:
+      - net_l6
+    depends_on: 
+      - loki
+
+  log_container:
+    image: busybox
+    command: "sh -c 'while true; do echo \"Fluentd test log: $(date)\"; sleep 2; done'"
+    networks:
+      - net_l6
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: log_container.logs
+    depends_on:
+      - fluentd-loki
+
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+    networks:
+      - net_l6
+    ports:
+      - "8088:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${pass}
+      - GF_DASHBOARD_DEFAULT_HOME_DASHBOARD_PATH=${path}
+      - GF_SERVER_ROOT_URL=${url}
+    depends_on:
+      - loki
+
+networks:
+  net_l6:
+    driver: bridge
