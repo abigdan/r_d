@@ -24,7 +24,7 @@ services:
   fluentd-loki:
     # параметри створення образа
     build:
-      context: ./fluentd-loki
+      context: ./fluent
       dockerfile: dockerfile
     # списки портів (звідки:куди)
     ports:
@@ -32,7 +32,7 @@ services:
       - "24224:24224/udp"
     # підключення тому - передача файлу конфігурації в контейнер в режимі read-only
     volumes:
-      - ./fluentd-loki/fluentd.conf:/fluentd/etc/fluent.conf:ro
+      - ./fluent/fluentd.conf:/fluentd/etc/fluent.conf:ro
     # список мереж
     networks:
       - net_l6
