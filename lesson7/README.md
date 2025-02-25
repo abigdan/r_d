@@ -1,6 +1,78 @@
 # Lesson-7
 
-# **Docker Compose**
+# **Docker Compose** YAML
+
+docker-compose.yaml
+```
+version: '1.1'
+
+# сервіси / контейнери
+services:
+
+  # контейнер збору логыв
+  loki:
+    # образ контейнера
+    image: grafana/loki:latest
+    # список портів (звідку:куди)
+    ports:
+      - "3100:3100"
+    # список мереж
+    networks:
+      - net_l6
+
+  # контейнер
+  fluentd-loki:
+    # параметри створення образа
+    build:
+      context: ./fluentd-loki
+      dockerfile: dockerfile
+    # списки портів (звідки:куди)
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    # підключення тому - передача файлу конфігурації в контейнер в режимі read-only
+    volumes:
+      - ./fluentd-loki/fluentd.conf:/fluentd/etc/fluent.conf:ro
+    networks:
+      - net_l6
+    depends_on: 
+      - loki
+
+  log_container:
+    image: busybox
+    command: "sh -c 'while true; do echo \"Fluentd test log: $(date)\"; sleep 2; done'"
+    networks:
+      - net_l6
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: log_container.logs
+    depends_on:
+      - fluentd-loki
+
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+    networks:
+      - net_l6
+    ports:
+      - "8088:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${pass}
+      - GF_DASHBOARD_DEFAULT_HOME_DASHBOARD_PATH=${path}
+      - GF_SERVER_ROOT_URL=${url}
+    depends_on:
+      - loki
+
+networks:
+  net_l6:
+    driver: bridge
+```
+
+
+
 
 ## Опис ключових елементів `**docker-compose.yml**`
 
