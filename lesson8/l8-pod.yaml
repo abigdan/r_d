@@ -2,6 +2,9 @@ apiVersion: v1                      # API Version, manifest always begins with i
 kind: Pod                           # Kind of Object
 metadata:                           # Helpful data to identify the Object
   name: l8-pod                      # Name of the Pod
+  labels:                           # Set of labes
+    environment: testenv
+    app: openssh
 spec:                               # Description of the characteristics to be obtained from the resource
   containers:                       # List of Containers
     - name: l8-container            # Name of the Container
