@@ -1,26 +1,19 @@
 # Lesson-8
 
-### **Приклад створення простору імен:**
-
-
+## Зупинка Docker'a
 ```
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: my-namespace
+sudo systemctl stop docker.socket
+sudo systemctl stop docker          # docker.service
 ```
+## Створення манифестів
+Опис в середині кожного YAML файлів
 
-Щоб застосувати його, виконайте:
-
+### Namespace testenv
 ```
-microk8s.kubectl apply -f namespace.yaml
-```
-
-### **Перегляд доступних просторів імен:**
-
-```
+microk8s.kubectl apply -f l8-namespace.yaml
 microk8s.kubectl get namespaces
 ```
+
 
 ### **Перегляд ресурсів у конкретному просторі імен:**
 
