@@ -14,48 +14,19 @@ microk8s.kubectl apply -f l8-namespace.yaml
 microk8s.kubectl get namespaces
 ```
 
-
-### **Перегляд ресурсів у конкретному просторі імен:**
-
+### Pod
 ```
-microk8s.kubectl get pods -n my-namespace
+microk8s.kubectl apply -f l8-pod.yaml -n testenv
+microk8s.kubectl get pods -n testenv
+microk8s.kubectl describe pod l8-pod -n testenv
 ```
+
 
 ### **Видалення простору імен:**
 
 ```
 microk8s.kubectl delete namespace my-namespace
 ```
-
-#### **Приклад створення Pod:**
-
-```
-apiVersion: v1
-kind: Pod
-metadata:
-  name: my-pod
-spec:
-  containers:
-    - name: my-container
-      image: nginx:latest
-      ports:
-        - containerPort: 80
-```
-
-Після створення YAML-файлу, застосуйте його в кластері за допомогою команди:
-
-```
-microk8s.kubectl apply -f my-pod.yaml
-```
-
-Щоб перевірити, чи Pod успішно створений, виконайте:
-
-```
-microk8s.kubectl get pods
-```
-
-Для отримання детальної інформації про Pod використовуйте:
-
 ```
 microk8s.kubectl describe pod my-pod
 ```
