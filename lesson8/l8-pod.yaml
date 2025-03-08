@@ -1,0 +1,7 @@
+apiVersion: v1                      # API Version
+kind: Pod                           # Kind of Object
+metadata:
+  name: l8-pod
+spec:
+  containers:
+    - name:
