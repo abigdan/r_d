@@ -3,5 +3,5 @@ kind: Namespace                     # Kind of Object
 metadata:                           # Helpful data to identify the Object
   name: testenv                     # Name of the Namespace
   labels:                           # Identifying attributes of Oobjects that are meaningful and relevant to users
-    name: testenv                   # Name of the Label
-
+    environment: testenv            # Name and Value of the Label
+    
