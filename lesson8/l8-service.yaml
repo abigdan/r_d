@@ -8,7 +8,7 @@ spec:                               # Description of the characteristics to be o
     environment: testenv            # Matches pods with these labels
     app: openssh                    #
   ports:                            # Port configuration
-    - name: l8-container            # Name of the Container
-      image: linuxserver/openssh-server  # Image to use
-      ports:                        # List of the Container's ports
-        - containerPort: 22         # The Container port
+    - protocol: TCP                 # Protocol to use
+      port: 8022                    # Port on the service routes to port on the Target pod
+      targetPort: 22                # Port on the Target pod
+  type: ClusterIP                   # Type of Service. ClusterIP is a default type, makes the service accessible only within the Kubernetes cluster
