@@ -8,17 +8,16 @@ spec:                               # Description of the characteristics to be o
                                     # The selector field helps to specify the pods that the service should route traffic to
     matchLabels:
       environment: testenv          # Matches pods with these labels
-      app: openssh                  #
+      app: apache2                  #
   template:                         # Pod template
     metadata:                       # Helpful data to identify the Object
       labels:                       # Set of labels
         environment: testenv
-        app: openssh
+        app: apache2
     spec:                           # Description of the characteristics to be obtained from the resource
       containers:                   # List of Containers
         - name: l8-container        # Name of the Container
-          image: linuxserver/openssh-server  # Image to use
+          image: apache2:latest     # Image to use
           ports:                    # List of the Container's ports
-           - containerPort: 22      # The Container port
-
+           - containerPort: 80      # The Container port
 
