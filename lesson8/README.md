@@ -30,6 +30,7 @@ microk8s.kubectl describe service l8-service -n testenv
 microk8s.kubectl get endpoints l8-service -n testenv
 ```
 **RESULT**
+
 NAME         ENDPOINTS         AGE
 l8-service   10.1.227.154:22   5m53s
 
@@ -37,6 +38,7 @@ l8-service   10.1.227.154:22   5m53s
 microk8s.kubectl get services l8-service -o wide -n testenv
 ```
 **RESULT**
+
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE   SELECTOR
 l8-service   ClusterIP   10.152.183.49   <none>        8022/TCP   19m   app=openssh,environment=testenv
 
