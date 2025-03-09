@@ -11,7 +11,7 @@ spec:                               # Description of the characteristics to be o
     - protocol: TCP                 # Protocol to use
       port: 8080                    # The port exposed by the service
       targetPort: 80                # The port on the pods that the service routes to
-      nodePort: 38088               # The port on each node to expose the service
+      nodePort: 30080               # The port on each node to expose the service
   type: NodePort                    # Type of Service.
                                     # ClusterIP is a default type, makes the service accessible only within the Kubernetes cluster
                                     # NodePort - application to be accessible externally from the host operating system
