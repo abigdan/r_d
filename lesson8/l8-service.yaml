@@ -9,6 +9,9 @@ spec:                               # Description of the characteristics to be o
     app: apache2                    #
   ports:                            # Port configuration
     - protocol: TCP                 # Protocol to use
-      port: 8080                    # Port on the service routes to port on the Target pod
-      targetPort: 80                # Port on the Target pod
-  type: ClusterIP                   # Type of Service. ClusterIP is a default type, makes the service accessible only within the Kubernetes cluster
+      port: 8080                    # The port exposed by the service
+      targetPort: 80                # The port on the pods that the service routes to
+      nodePort: 88088               # The port on each node to expose the service
+  type: NodePort                    # Type of Service.
+                                    # ClusterIP is a default type, makes the service accessible only within the Kubernetes cluster
+                                    # NodePort - application to be accessible externally from the host operating system
