@@ -8,13 +8,15 @@ sudo systemctl stop docker          # docker.service
 ## Створення манифестів
 Опис в середині кожного YAML файлів
 
-### Namespace testenv
+### Namespace
+l8-namespace.yaml [testenv]
 ```
 microk8s.kubectl apply -f l8-namespace.yaml
 microk8s.kubectl get namespaces
 ```
 
-### Pod (image: linuxserver/openssh-server)
+### Pod
+l8-po.yaml [image: linuxserver/openssh-server]
 ```
 microk8s.kubectl apply -f l8-service.yaml -n testenv
 microk8s.kubectl get pods -n testenv
@@ -22,7 +24,7 @@ microk8s.kubectl describe pod l8-pod -n testenv
 ```
 
 ### Service
-openssh
+l8-service.yaml [openssh]
 ```
 microk8s.kubectl apply -f l8-pod.yaml -n testenv
 microk8s.kubectl get services -n testenv
@@ -43,51 +45,11 @@ NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE   SELECTOR
 l8-service   ClusterIP   10.152.183.49   <none>        8022/TCP   19m   app=openssh,environment=testenv
 ```
 
-У цьому прикладі всі Pod'и з `label: app=my-app` будуть отримувати трафік через сервіс `my-service`.
-
-### **Перевірка доступності сервісу:**
-
-Отримати список сервісів у кластері:
-    
-    ```
-    microk8s.kubectl get services
-    ```
-    
-Перевірити, які Pod'и обслуговує сервіс:
-    
-    ```
-    microk8s.kubectl get endpoints my-service
-             ```
-
-Дізнатися IP-адресу сервісу:
-    
-    ```
-    microk8s.kubectl get svc my-service -o wide
-    ```
-
-
-### **Приклад створення Deployment:**
-
+## Deployment
+l8-deployment.yaml
 ```
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: my-deployment 
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: my-app
-  template:
-    metadata:
-      labels:
-        app: my-app
-    spec:
-      containers:
-        - name: my-container 
-          image: nginx:latest
-          ports:
-            - containerPort: 80
+microk8s.kubectl apply -f l8-deployment.yaml -n testenv
+
 ```
 
 ### **Перевірка та управління Deployment:**
