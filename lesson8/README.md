@@ -21,6 +21,8 @@ l8-po.yaml [image: apache2:latest]
 microk8s.kubectl apply -f l8-service.yaml -n testenv
 microk8s.kubectl get pods -n testenv
 microk8s.kubectl describe pod l8-pod -n testenv
+
+microk8s.kubectl delete pod l8-pod -n testenv
 ```
 
 ### Service
@@ -51,6 +53,8 @@ l8-deployment.yaml
 microk8s.kubectl apply -f l8-deployment.yaml -n testenv
 microk8s.kubectl get deployments -n testenv
 microk8s.kubectl describe deployment l8-deployment -n testenv
+
+microk8s.kubectl delete deployment l8-deployment -n testenv
 ```
     
 4. **Масштабування Deployment:**
