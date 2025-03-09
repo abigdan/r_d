@@ -6,7 +6,7 @@ spec:                               # Description of the characteristics to be o
   selector:                         # Selector is a way to match a set of resources based on their labels
                                     # The selector field helps to specify the pods that the service should route traffic to
     environment: testenv            # Matches pods with these labels
-    app: apache2                    #
+    app: httpd                      #
   ports:                            # Port configuration
     - protocol: TCP                 # Protocol to use
       port: 8080                    # The port exposed by the service
