@@ -14,40 +14,22 @@ microk8s.kubectl apply -f l8-namespace.yaml
 microk8s.kubectl get namespaces
 ```
 
-### Pod
+### Pod (image: linuxserver/openssh-server)
 ```
-microk8s.kubectl apply -f l8-pod.yaml -n testenv
+microk8s.kubectl apply -f l8-service.yaml -n testenv
 microk8s.kubectl get pods -n testenv
 microk8s.kubectl describe pod l8-pod -n testenv
 ```
 
+### Service
+openssh
+```
+microk8s.kubectl apply -f l8-pod.yaml -n testenv
+microk8s.kubectl get services -n testenv
+microk8s.kubectl describe service l8-service -n testenv
+microk8s.kubectl get endpoints l8-service -n testenv
+```
 
-### **Видалення простору імен:**
-
-```
-microk8s.kubectl delete namespace my-namespace
-```
-```
-microk8s.kubectl describe pod my-pod
-```
-
-
-### **Приклад створення Service**
-
-```
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-spec:
-  selector:
-    app: my-app
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-  type: ClusterIP
-```
 
 У цьому прикладі всі Pod'и з `label: app=my-app` будуть отримувати трафік через сервіс `my-service`.
 
