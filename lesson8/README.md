@@ -16,7 +16,7 @@ microk8s.kubectl get namespaces
 ```
 
 ### Pod
-l8-po.yaml [image: linuxserver/openssh-server]
+l8-po.yaml [image: apache2:latest]
 ```
 microk8s.kubectl apply -f l8-service.yaml -n testenv
 microk8s.kubectl get pods -n testenv
@@ -24,7 +24,7 @@ microk8s.kubectl describe pod l8-pod -n testenv
 ```
 
 ### Service
-l8-service.yaml [openssh]
+l8-service.yaml [apache2]
 ```
 microk8s.kubectl apply -f l8-pod.yaml -n testenv
 microk8s.kubectl get services -n testenv
@@ -34,7 +34,7 @@ microk8s.kubectl get endpoints l8-service -n testenv
 **RESULT**
 ```
 NAME         ENDPOINTS         AGE
-l8-service   10.1.227.154:22   5m53s
+l8-service   10.1.227.154:80   5m53s
 ```
 ```
 microk8s.kubectl get services l8-service -o wide -n testenv
@@ -42,35 +42,16 @@ microk8s.kubectl get services l8-service -o wide -n testenv
 **RESULT**
 ```
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE   SELECTOR
-l8-service   ClusterIP   10.152.183.49   <none>        8022/TCP   19m   app=openssh,environment=testenv
+l8-service   ClusterIP   10.152.183.49   <none>        8080/TCP   19m   app=apache2,environment=testenv
 ```
 
 ## Deployment
 l8-deployment.yaml
 ```
 microk8s.kubectl apply -f l8-deployment.yaml -n testenv
-
+microk8s.kubectl get deployments -n testenv
+microk8s.kubectl describe deployment l8-deployment -n testenv
 ```
-
-### **Перевірка та управління Deployment:**
-
-1. **Створення Deployment:**
-    
-    ```
-    microk8s.kubectl apply -f deployment.yaml
-    ```
-    
-2. **Перевірка статусу Deployment:**
-    
-    ```
-    microk8s.kubectl get deployments
-    ```
-    
-3. **Перегляд детальної інформації:**
-    
-    ```
-    microk8s.kubectl describe deployment my-deployment
-    ```
     
 4. **Масштабування Deployment:**
     
