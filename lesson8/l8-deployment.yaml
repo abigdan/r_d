@@ -1,0 +1,24 @@
+apiVersion: apps/v1                 # API Version, manifest always begins with it and its version
+kind: Deployment                    # Kind of Object
+metadata:                           # Helpful data to identify the Object
+  name: l8-deployment               # Name of the Deployment
+spec:                               # Description of the characteristics to be obtained from the resource
+  replicas: 3                       # The desired number of identical pod replicas that should be running at any given time
+  selector:                         # Selector is a way to match a set of resources based on their labels
+                                    # The selector field helps to specify the pods that the service should route traffic to
+    matchLabels:
+      environment: testenv          # Matches pods with these labels
+      app: openssh                  #
+  template:                         # Pod template
+    metadata:                       # Helpful data to identify the Object
+      labels:                       # Set of labes
+        environment: testenv
+        app: openssh
+    spec:                           # Description of the characteristics to be obtained from the resource
+      containers:                   # List of Containers
+        - name: l8-container        # Name of the Container
+          image: linuxserver/openssh-server  # Image to use
+          ports:                    # List of the Container's ports
+           - containerPort: 22      # The Container port
+
+
