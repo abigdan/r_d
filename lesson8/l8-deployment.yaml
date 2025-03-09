@@ -19,5 +19,5 @@ spec:                               # Description of the characteristics to be o
         - name: l8-container        # Name of the Container
           image: httpd:latest       # Image to use
           ports:                    # List of the Container's ports
-           - containerPort: 80      # The Container port to be exposed
+           - containerPort: 8080    # The Container port to be exposed
 
