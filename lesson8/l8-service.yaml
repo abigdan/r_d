@@ -1,12 +1,14 @@
 apiVersion: v1                      # API Version, manifest always begins with it and its version
 kind: Service                       # Kind of Object
 metadata:                           # Helpful data to identify the Object
-  name: l8-service                  # Name of the Pod
+  name: l8-service                  # Name of the Service
 spec:                               # Description of the characteristics to be obtained from the resource
-  
-  ports:                            # List of Ports
+  selector:                         # Selector is a way to match a set of resources based on their labels
+                                    # The selector field helps to specify the pods that the service should route traffic to
+    environment: testenv            # Matches pods with these labels
+    app: openssh                    #
+  ports:                            # Port configuration
     - name: l8-container            # Name of the Container
       image: linuxserver/openssh-server  # Image to use
       ports:                        # List of the Container's ports
         - containerPort: 22         # The Container port
-        
