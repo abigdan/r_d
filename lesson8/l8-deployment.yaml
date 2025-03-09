@@ -11,7 +11,7 @@ spec:                               # Description of the characteristics to be o
       app: openssh                  #
   template:                         # Pod template
     metadata:                       # Helpful data to identify the Object
-      labels:                       # Set of labes
+      labels:                       # Set of labels
         environment: testenv
         app: openssh
     spec:                           # Description of the characteristics to be obtained from the resource
